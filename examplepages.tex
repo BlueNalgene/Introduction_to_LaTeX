@@ -1,0 +1,115 @@
+\usepackage{filecontents}
+
+\newcommand{\compit}[1]{\immediate\write18{pdflatex -synctex=1 -interaction=nonstopmode #1.tex; rm #1.aux #1.log #1.synctex.gz #1.tex}}
+
+\begin{filecontents*}{hiddenlayout.tex}
+	\documentclass[preview,border=12pt,12pt]{standalone}
+	\usepackage[a6paper,margin=1cm,showframe]{geometry}
+	\usepackage{lipsum}
+	\begin{document}
+		\section*{Minipage}
+		\noindent
+		\fbox{%
+		\begin{minipage}{.45\linewidth}
+		hats
+		\end{minipage}}
+		\hfill
+		\fbox{
+		\begin{minipage}{.45\linewidth}
+		Right Minipage
+		\end{minipage}}
+		
+		\section*{Hello World}
+		{\tiny\lipsum[1]}
+	\end{document}
+\end{filecontents*}
+
+\compit{hiddenlayout}
+
+\begin{filecontents*}{hiddensimplestdoc.tex}
+	\documentclass{article}
+	\usepackage{lipsum}
+	\title{The simplest}
+	\author{Wes Honeycutt}
+		\begin{document}
+			\maketitle
+			\lipsum[1]
+		\end{document}
+\end{filecontents*}
+
+\compit{hiddensimplestdoc}
+
+\begin{filecontents*}{hiddentitlearticle.tex}
+	\documentclass{article}
+	\usepackage{lipsum}
+	\title{The Pitfalls of LaTeX}
+	\author{
+		Wesley T. Honeycutt
+		\thanks{University of Oklahoma Department of Biology}
+		\and Leon the Cat}
+	\subtitle{Stack Exchange was down and other horror stories}
+	\subject{A Joke Paper}
+	\begin{document}
+		\maketitle
+		\lipsum[1]
+	\end{document}
+\end{filecontents*}
+
+\compit{hiddentitlearticle}
+
+
+\begin{filecontents*}{hiddentitlescrbook.tex}
+	\documentclass{scrbook}
+	\usepackage{lipsum}
+	\title{The Pitfalls of LaTeX}
+	\author{
+		Wesley T. Honeycutt
+		\thanks{University of Oklahoma Department of Biology}
+		\and Leon the Cat}
+	\subtitle{Stack Exchange was down and other horror stories}
+	\subject{A Joke Paper}
+	\begin{document}
+		\maketitle
+		\lipsum[1]
+	\end{document}
+\end{filecontents*}
+
+\compit{hiddentitlescrbook}
+
+
+\begin{filecontents*}{hiddentitlereport.tex}
+	\documentclass{report}
+	\usepackage{lipsum}
+	\title{The Pitfalls of LaTeX}
+	\author{
+		Wesley T. Honeycutt
+		\thanks{University of Oklahoma Department of Biology}
+		\and Leon the Cat}
+	\subtitle{Stack Exchange was down and other horror stories}
+	\subject{A Joke Paper}
+	\begin{document}
+		\maketitle
+		\lipsum[1]
+	\end{document}
+\end{filecontents*}
+
+\compit{hiddentitlereport}
+
+
+\begin{filecontents*}{hiddentitleelsarticle.tex}
+	\documentclass{elsarticle}
+	\usepackage{lipsum}
+	\title{The Pitfalls of LaTeX}
+	\author{
+		Wesley T. Honeycutt
+		\thanks{University of Oklahoma Department of Biology}
+		\and Leon the Cat}
+	\subtitle{Stack Exchange was down and other horror stories}
+	\subject{A Joke Paper}
+	\begin{document}
+		\maketitle
+		\lipsum[1]
+	\end{document}
+\end{filecontents*}
+
+\compit{hiddentitleelsarticle}

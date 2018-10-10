@@ -240,3 +240,6 @@ TSWLatexianTemp*
 
 # generated if using elsarticle.cls
 *.spl
+
+# Extraneous defined by user which can be omitted for git storage:
+hidden*
