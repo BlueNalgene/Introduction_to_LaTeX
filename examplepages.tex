@@ -113,3 +113,69 @@
 \end{filecontents*}
 
 \compit{hiddentitleelsarticle}
+
+\begin{filecontents*}{hiddeninvoice.tex}
+	\documentclass{invoice}
+
+	\usepackage{draftwatermark}
+	  \SetWatermarkText{DRAFT}
+	  \SetWatermarkScale{5}
+	\usepackage[super]{nth}
+	\usepackage{setspace}
+	\usepackage{microtype}
+	\newcommand{\angstrom}{\textup{ \AA}}
+	\newcommand{\degree}{$^{\circ}$}
+	\def \tab {\hspace*{3ex}} % Define \tab to create some horizontal white space
+	
+	\begin{document}
+		%----------------------------------------------------------------------------------------
+		%	HEADING SECTION
+		%----------------------------------------------------------------------------------------
+		
+		\hfil{\Huge\bf Wesley Honeycutt}\hfil % Company providing the invoice
+		\bigskip\break % Whitespace
+		\hrule % Horizontal line
+		
+		111 Chesapeake St. \hfill (405) 555-5555 \\ % Your address and contact information
+		Norman, OK 73019 
+		\hfill honeycutt@ou.edu
+		\\ \\
+		{\bf Invoice To:} 
+		\begin{singlespace}
+			\tab Jimmy Gallogly \\ % Invoice recipient
+			\tab University of Oklahoma \\ % Recipient's company
+			\tab 660 Paddington Oval\\
+			\tab Norman, OK 73019
+		\end{singlespace}
+		
+		
+		{\bf Invoice Date:} \hfill {\bf Invoice Terms}\\
+		\tab \today \hfill Due on Receipt\\ % Invoice date
+		
+		%----------------------------------------------------------------------------------------
+		%	TABLE OF EXPENSES
+		%----------------------------------------------------------------------------------------
+		
+		\begin{invoiceTable}
+			
+			\feetype{Purchased Materials}
+			\feerow{Beard Growth Oil}{337.39}
+			
+			\feetype{Consulting Services}
+			\hourrow{July \nth{9}, 2018}{1}{12}
+			\hourrow{July \nth{10}, 2018}{8}{34}
+			\hourrow{July \nth{11}, 2018}{3}{12}
+			\hourrow{July \nth{14}, 2018}{3}{34}
+			\hourrow{July \nth{15}, 2018}{3}{12}
+			\hourrow{July \nth{20}, 2018}{1}{34}
+			\hourrow{July \nth{21}, 2018}{2}{12}
+			\hourrow{July \nth{31}, 2018}{4}{34}
+			
+		\end{invoiceTable}
+		
+		%----------------------------------------------------------------------------------------
+		
+	\end{document}
+\end{filecontents*}
+
+\compit{hiddeninvoice}

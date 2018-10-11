@@ -9,6 +9,8 @@
 \usepackage{hologo}
 \usepackage{showexpl}
 \usepackage{hyperref}
+\usepackage{calc}
+\usepackage{fp}
 
 \title{An Introduction to \LaTeX}
 \subtitle{Make Documents Like A PROgrammer}
@@ -59,6 +61,10 @@
 \begin{document}
 
 	\frame{\titlepage}
+	
+	\frame{\frametitle{If you want to follow along}
+		\href{https://github.com/BlueNalgene/Introduction_to_LaTeX}{https://github.com/BlueNalgene/Introduction\_to\_LaTeX}	
+	}
 	
 	\section{What in the world is \LaTeX}
 	
@@ -151,8 +157,61 @@
 	
 	\section{Compilers}
 	
+		\frame[containsverbatim]{\frametitle{If you like to suffer}
+			\LaTeX{}is coded as plaintext.  If you really want to, you can do everything in a Notepad-like text editor.
+			\\~\\
+			The code is processed via command line:
+			\begin{lstlisting}
+				pdflatex thefile.tex
+			\end{lstlisting}
+		}
 	
+		\frame{\frametitle{There are add-ons for popular text editors}
+			\begin{itemize}
+				\item<1-> \textit{vim}: \href{http://vim-latex.sourceforge.net}{\LaTeX{}suite for vim}
+				\item<2-> \textit{emacs}: \href{http://personal.psu.edu/jcc8//software/latexmk-jcc/}{Latexmk}
+				\item<3-> \textit{Notepad++}: \href{http://johnbruer.com/2013/05/21/latex-editing-using-notepad/}{Requires multiple tweaks}
+				\item<4-> \textit{Sublime Text}: \href{https://latextools.readthedocs.io/en/latest/}{\LaTeX{}Tools}
+				\item<5-> \textit{Atom}: \href{https://atom.io/packages/latex}{\LaTeX{}apm}
+			\end{itemize}
+		}
 	
+		\frame{\frametitle{Lots of \LaTeX{} IDE's}
+			\begin{columns}[onlytextwidth,T]
+				\column{\linewidth/2-\linewidth/20}
+				\begin{itemize}
+					\item<1-> TeXstudio \faWindows{} \faApple{} \faLinux{}
+					\item<2-> Texmaker \faWindows{} \faApple{} \faLinux{}
+					\item<3-> LyX \faWindows{} \faApple{} \faLinux{}
+					\item<4-> MacTeX \faApple{}
+					\item<5-> MiKTeX \faWindows{}
+					\item<6-> TeX Live \faLinux{}
+				\end{itemize}
+				\column{\linewidth/2-\linewidth/20}
+				
+				\includegraphics[width=\linewidth]{texstudio.png}<1>
+				\includegraphics[width=\linewidth]{texmaker.png}<2>
+				\includegraphics[width=\linewidth]{lyx.png}<3>
+				\includegraphics[width=\linewidth]{mactex.png}<4>
+				\includegraphics[width=\linewidth]{miktex.png}<5>
+			\end{columns}
+		}
+	
+		\frame{\frametitle{Online collaborative options}
+			\begin{columns}[onlytextwidth,T]
+				\column{\linewidth/2-\linewidth/20}
+				\begin{itemize}
+					\item<1-> Overleaf/ShareLaTeX
+					\item<2-> Authorea
+					\item<3-> There are others which I have no experience with.
+				\end{itemize}
+				\column{\linewidth/2-\linewidth/20}
+				
+				\includegraphics[width=\linewidth]{overleaf.png}<1>
+				\includegraphics[width=\linewidth]{authorea.jpg}<2>
+			\end{columns}
+			
+		}
 	
 	
 	\section{The Basics and Principles}
@@ -449,7 +508,17 @@
 			\end{LTXexample}
 		}
 	
+		\frame{\frametitle{Graphics}
+		
+		}
 	
+		\frame{\frametitle{Tables}
+			
+		}
+	
+		\frame{\frametitle{Math}
+			
+		}
 	
 	\section{Some Advanced Features (aka Wes shows off his projects)}
 	
@@ -523,7 +592,91 @@
 		}
 		
 		\frame{\frametitle{Super Powerful for Theses}
+			% Pop a chapter out, boom... you got a paper.
 			
+			% OSU doesn't have one.  What a bummer.  I made one myself.
+			
+			% OU does have one.  Let's link you to it.
+			% http://www.math.ou.edu/~mgsa/latex.html
+		}
+	
+		\frame{\frametitle{Make a Custom Class}
+			% Show off my fancy executive summary.
+			\centering
+			\includegraphics[height=0.9\textheight]{redcedar.pdf}
+		}
+	
+		\frame{\frametitle{Make a Custom Class}
+			\centering
+			\includegraphics[width=0.9\linewidth]{nipajin.png}\\
+			\href{https://github.com/ludus-leonis/nipajin}{https://github.com/ludus-leonis/nipajin}
+		}
+	
+		\frame{\frametitle{Make a Custom Class}
+			\centering
+			\includegraphics[height=0.8\textheight]{liturghie.png}\\
+			\href{http://www.liturghie.net/}{http://www.liturghie.net/}
+		}
+	
+		\frame{\frametitle{Make a Custom Class}
+			\centering
+			\includegraphics[height=0.75\textheight]{bible.png}\\
+			\href{https://github.com/raphink/geneve_1564}{https://github.com/raphink/geneve\_1564}
+		}
+	
+		\frame{\frametitle{Make a Custom Class}
+			\centering
+			\includegraphics[width=0.9\linewidth]{textbook.jpg}\\
+			\href{https://github.com/alexisflesch/nexus}{https://github.com/alexisflesch/nexus}
+		}
+	
+		\frame[containsverbatim]{\frametitle{Unique Words and Hypenation}
+			\LaTeX{} automatically hyphenates words in the dictionary.  What if you have something that isn't common?
+			\\~\\
+			\begin{lstlisting}
+				\hyphenation{Red-ce-dar May-ap-ple Ok-la-ho-ma che-mo-ther-apy through}
+			\end{lstlisting}
+		}
+	
+		\frame[containsverbatim]{\frametitle{Do calculations}
+			\LaTeX{}wasn't made for math, but you do have access to registers \ldots
+			\\~\\
+			\begin{block}{\textbackslash{}usepackage\{calc\}}
+			\begin{LTXexample}
+			\newlength{\mylength}
+			\setlength{\mylength}{\textwidth}%
+			\noindent\rule{\mylength}{20pt}
+			
+			\bigskip
+			\setlength{\mylength}{\textwidth-1cm}%
+			\noindent\rule{\mylength}{20pt}
+			
+			\bigskip
+			\setlength{\mylength}{\textwidth-80pt+5mm-1bp}%
+			\noindent\rule{\mylength}{20pt}
+			\end{LTXexample}
+			\end{block}
+		}
+	
+		\frame[containsverbatim]{\frametitle{Do calculations}
+			\ldots and floating points.
+			\\~\\	
+			\begin{block}{\textbackslash{}usepackage\{fp\}}
+			\begin{LTXexample}
+			The following arithmetic is easy:
+			\begin{itemize}
+			\item \FPeval{\result}{clip(5+6)}%
+			$5+6=\result$
+			\item \FPeval{\result}{round(2+3/5*pi,5)}%
+			$2+3/5\times\pi=\result$
+			\end{itemize}
+			\end{LTXexample}
+			\end{block}
+		}
+	
+		\frame{\frametitle{I use math for my consulting invoices.}
+			\centering
+			\includegraphics[height=0.9\paperheight]{hiddeninvoice}
 		}
 	
 	\section{Learning More}
@@ -565,11 +718,36 @@
 						
 						\faEnvelope: \href{mailto:amanda.schilling@ou.edu}{amanda.schilling@ou.edu}
 						
+						~\\
+						
+						\textbf{Office Hours:} W/Th 8-9am in DAVIS\\
+						\qquad\qquad M 6-8pm in the Learning Lab
+						
 					\column{30mm}
 						\includegraphics[width=30mm]{amanda.jpg}
 				\end{columns}
 			\end{block}
 			}
+		
+		
+			\frame{\frametitle{At your local library}
+			\begin{block}{OU libraries has a \LaTeX\ expert:}
+				\begin{columns}[onlytextwidth,T]
+					\column{\linewidth-30mm-5mm}
+					~\\~\\
+					\textbf{Mark Laufersweiler}\\
+					
+					\faChain: \href{https://libraries.ou.edu/users/mark-laufersweiler}{Research Data Specialist}
+					
+					\faPhone: (405) 325-3710
+					
+					\faEnvelope: \href{mailto:laufers@ou.edu}{laufers@ou.edu}
+					
+					\column{30mm}
+					\includegraphics[width=30mm]{mark.jpg}
+				\end{columns}
+			\end{block}
+		}
 	
 		\frame{\frametitle{Or contact me}
 			\begin{block}{I'm just a \LaTeX\ junkie:}
