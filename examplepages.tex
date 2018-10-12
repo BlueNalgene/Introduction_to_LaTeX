@@ -179,3 +179,94 @@
 \end{filecontents*}
 
 \compit{hiddeninvoice}
+
+\begin{filecontents*}{hiddengeometry.tex}
+	\documentclass{article}
+	\usepackage{lipsum}
+	\usepackage[paperheight=5in,paperwidth=4in,margin=0.5in,heightrounded,showframe]{geometry}
+	\begin{document}
+		\lipsum[1]
+	\end{document}
+\end{filecontents*}
+
+\compit{hiddengeometry}
+
+\begin{filecontents*}{hiddenleonitemize.tex}
+	\documentclass{article}
+	\usepackage[paperheight=2in,paperwidth=2in,margin=0in]{geometry}
+	\usepackage{graphicx}
+	\newcommand*{\meow}{\includegraphics[width=1em]{leon.png}}
+	\begin{document}
+		\begin{itemize}
+			\item[\meow] My cat's name is Leon
+			\item[\meow] He is a handsome little man
+			\item[\meow] Also a jerk
+		\end{itemize}
+	\end{document}
+\end{filecontents*}
+
+\compit{hiddenleonitemize}
+
+\begin{filecontents*}{hiddenmicrotype.tex}
+	\documentclass{article}
+	\usepackage{lipsum}
+	\usepackage{microtype}
+	\usepackage[paperheight=5in,paperwidth=4in,margin=0.5in,heightrounded,showframe]{geometry}
+	\begin{document}
+		\lipsum[1]
+	\end{document}
+\end{filecontents*}
+
+\compit{hiddenmicrotype}
+
+\begin{filecontents*}{hiddentable.tex}
+	\documentclass{article}
+	\usepackage[table]{xcolor}
+	\usepackage{multirow}
+	\usepackage{hhline}
+	\usepackage{graphicx}
+	\newcolumntype{C}{>{\centering\arraybackslash}p{1cm}}
+	
+	\begin{document}
+		\rowcolors{2}{gray!40}{gray!40}
+		\renewcommand{\arraystretch}{1.1}
+		\setlength{\arrayrulewidth}{0.6pt}
+		\begin{tabular}{|C|>{\columncolor{gray!40}}C|*{5}{C|}}\hhline{*{7}{-}}
+			\multicolumn{2}{|c|}{\cellcolor{gray!40}}& \multicolumn{5}{c|}{\cellcolor{white}Group III} \\\hhline{~~*{5}{-}}
+			\multicolumn{2}{|c|}{III--V} & 5 & 13 & 31 & 69 & 81 \\
+			\multicolumn{2}{|c|}{Compounds} & B & Al & Ga & In & Tl \\\hhline{*{7}{-}}
+			\hiderowcolors
+			&  7  & BN  & AlN    & GaN    & InN    & TlN \\
+			&  N  &     &        & (3.4)  &        & \\\hhline{~*{6}{-}}
+			&  15 & BP  & AlP    & GaP    & InP    & TlP \\
+			&  P  &     & (2.55) & (2.24) & (1.27) & \\\hhline{~*{6}{-}}
+			&  33 & BAs & AlAs   & GaAs   & InAs   & TlAs \\
+			&  As &     &        & (1.35) &        & \\\hhline{~*{6}{-}}
+			&  51 & BSb & AlSb   & GaSb   & InSb   & TlSb \\
+			&  Sb &     &        & (9.67) &        & \\\hhline{~*{6}{-}}
+			&  84 & BBi & AlBi   & GaBi   & InBi   & TlBi \\
+			\multirow{-10}{*}{\rotatebox{90}{Group V}}
+			&  Bi &     &        &        &        & \\\hhline{*{7}{-}}
+			\multicolumn{4}{|p{\dimexpr4cm+6\tabcolsep+3\arrayrulewidth\relax}|}{\cellcolor{gray!40} Atomic number in black above element} &
+			\multicolumn{3}{p{\dimexpr3cm+4\tabcolsep+2\arrayrulewidth\relax}|}{\cellcolor{gray!40} Energy band gap (eV) of some of the selected elements within bracket}\\\hhline{*{7}{-}}
+		\end{tabular}
+	\end{document}
+\end{filecontents*}
+
+\compit{hiddentable}
+
+\begin{filecontents*}{hiddencitations.tex}
+	\documentclass{article}
+	\usepackage[paperheight=3in,paperwidth=3in,margin=0in]{geometry}
+	\begin{document}
+		Not only does the illustrious Dr. Honeycutt have a PhD in chemistry~\cite{dissertation}, but he likes to give technical talks~\cite{talk2014, talk2015}.  Other people even like giving presentations on his work~\cite{jacob2016}!
+		\pagebreak
+		\bibliographystyle{unsrt}
+		\bibliography{bib}
+	\end{document}
+\end{filecontents*}
+
+\immediate\write18{pdflatex hiddencitations.tex}
+\immediate\write18{bibtex hiddencitations.aux}
+\immediate\write18{pdflatex hiddencitations.tex}
+\compit{hiddencitations}

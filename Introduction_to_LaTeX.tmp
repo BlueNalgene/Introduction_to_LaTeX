@@ -1,3 +1,7 @@
-	\begin{equation}
-		x^2 + y^2 = z^2.
-	\end{equation}
+The following arithmetic is easy:
+\begin{itemize}
+\item \FPeval{\result}{clip(5+6)}%
+$5+6=\result$
+\item \FPeval{\result}{round(2+3/5*pi,5)}%
+$2+3/5\times\pi=\result$
+\end{itemize}

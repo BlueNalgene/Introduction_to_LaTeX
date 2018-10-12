@@ -1,8 +1,11 @@
 \documentclass{beamer}
+%\usetheme{Dresden}
+\usefonttheme[onlymath]{serif}
 
 \input{examplepages.tex}
 
 \usepackage{xcolor}
+\usepackage{adjustbox}
 \usepackage{fontawesome}
 \usepackage{tikz}
 	\usetikzlibrary{patterns}
@@ -14,14 +17,28 @@
 
 \title{An Introduction to \LaTeX}
 \subtitle{Make Documents Like A PROgrammer}
+%\thanks{\href{https://github.com/BlueNalgene/Introduction_to_LaTeX}{https://github.com/BlueNalgene/Introduction\_to\_LaTeX}}
 \author{Wesley T. Honeycutt}
 \institute{University of Oklahoma}
 \date{\today}
 
+\definecolor{OUCrimson}{RGB}{132 22 23} % UBC Blue (primary)
+\definecolor{OUCream}{RGB}{253 249 216} % UBC Grey (secondary)
+
+\setbeamercolor{palette primary}{bg=OUCrimson,fg=white}
+\setbeamercolor{palette secondary}{bg=OUCrimson,fg=white}
+\setbeamercolor{palette tertiary}{bg=OUCrimson,fg=white}
+\setbeamercolor{palette quaternary}{bg=OUCrimson,fg=white}
+\setbeamercolor{structure}{fg=OUCrimson} % itemize, enumerate, etc
+\setbeamercolor{section in toc}{fg=OUCrimson} % TOC sections
+
+% Override palette coloring with secondary
+\setbeamercolor{subsection in head/foot}{bg=OUCream,fg=white}
+
 \makeatletter
 \Hy@AtBeginDocument{%
 	\def\@pdfborder{0 0 1}% Overrides border definition set with colorlinks=true
-	\def\@pdfborderstyle{/S/U/W 1}% Overrides border style set with colorlinks=true
+	\def\@pdfborderstyle{0 0 0}% Overrides border style set with colorlinks=true
 	% Hyperlink border style will be underline of width 1pt
 }
 \makeatother
@@ -31,7 +48,7 @@
 	linkcolor=blue,
 	urlcolor=blue,
 	linkbordercolor=blue,% hyperlink borders will be red
-	pdfborderstyle={/S/U/W 1}% border style will be underline of width 1pt
+	pdfborderstyle={/S/U/W 0}% border style will be underline of width 1pt
 }
 
 \lstloadlanguages{[LaTeX]Tex} 
@@ -60,26 +77,26 @@
 
 \begin{document}
 
-	\frame{\titlepage}
-	
-	\frame{\frametitle{If you want to follow along}
-		\href{https://github.com/BlueNalgene/Introduction_to_LaTeX}{https://github.com/BlueNalgene/Introduction\_to\_LaTeX}	
-	}
-	
-	\section{What in the world is \LaTeX}
-	
-		\frame{\frametitle{History}
-			In 1978, Donald Knuth created the \TeX\ programming language in a fit of frustration with how ugly photoprinting looked.
-			\\~\\
-			In 1983, Leslie Lamport released \LaTeX\ (Layman's \TeX), a set of macros which made \TeX\ usable by mortals.
-			\\~\\
-			There are many other variants such as :
-			\begin{center}
-				\hologo{BibTeX}\ \hologo{ConTeXt}\ \hologo{LuaTeX}\ \hologo{LyX}\ \hologo{pdfLaTeX}\ \hologo{XeLaTeX}
-			\end{center}
+	\frame{\titlepage
+			\footnotetext{\href{https://github.com/BlueNalgene/Introduction_to_LaTeX}{https://github.com/BlueNalgene/Introduction\_to\_LaTeX}}
 		}
 	
-		\begin{frame}{\LaTeX~is\ldots}
+	\frame{\tableofcontents}
+	
+	\section{What is \LaTeX{}?}
+	
+		\frame{\frametitle{History}
+			\begin{itemize}
+				\item<1-> In 1978, Donald Knuth created the \TeX\ programming language in a fit of frustration with how ugly photoprinting looked.
+				\item<2-> In 1983, Leslie Lamport released \LaTeX\ (Layman's \TeX), a set of macros which made \TeX\ usable by mortals.
+				\item<3-> There are many other variants such as :
+				\begin{center}
+					\hologo{BibTeX}\ \hologo{ConTeXt}\ \hologo{LuaTeX}\ \hologo{LyX}\ \hologo{pdfLaTeX}\ \hologo{XeLaTeX}
+				\end{center}
+			\end{itemize}
+		}
+	
+		\frame{\frametitle{\LaTeX~is\ldots}
 			\ldots a sophisticated document preparation sytem.
 			\\~\\
 			\begin{block}{\LaTeX~has\ldots}
@@ -91,9 +108,9 @@
 					\item Highly extendible capabilities
 				\end{itemize}
 			\end{block}
-		\end{frame}
+		}
 		
-		\begin{frame}{\LaTeX~is not\ldots}
+		\frame{\frametitle{\LaTeX~is not\ldots}
 			\ldots a word processor.
 			\\~\\
 			\begin{block}{\LaTeX~does not\ldots}
@@ -104,7 +121,7 @@
 			\end{itemize}
 			\end{block}
 			``You take care of writing, and we'll take care of presentation."
-		\end{frame}
+		}
 	
 		\frame{\frametitle{You might be used to WYSIWYG}
 			\begin{center}
@@ -155,7 +172,7 @@
 			\end{LTXexample}
 		}
 	
-	\section{Compilers}
+	\section{IDE's}
 	
 		\frame[containsverbatim]{\frametitle{If you like to suffer}
 			\LaTeX{}is coded as plaintext.  If you really want to, you can do everything in a Notepad-like text editor.
@@ -180,12 +197,12 @@
 			\begin{columns}[onlytextwidth,T]
 				\column{\linewidth/2-\linewidth/20}
 				\begin{itemize}
-					\item<1-> TeXstudio \faWindows{} \faApple{} \faLinux{}
-					\item<2-> Texmaker \faWindows{} \faApple{} \faLinux{}
-					\item<3-> LyX \faWindows{} \faApple{} \faLinux{}
-					\item<4-> MacTeX \faApple{}
-					\item<5-> MiKTeX \faWindows{}
-					\item<6-> TeX Live \faLinux{}
+					\item<1-> \faWindows{} \faApple{} \faLinux{} TeXstudio 
+					\item<2-> \faWindows{} \faApple{} \faLinux{} Texmaker 
+					\item<3-> \faWindows{} \faApple{} \faLinux{} LyX 
+					\item<4-> \faApple{} MacTeX 
+					\item<5-> \faWindows{} MiKTeX 
+					\item<6-> \faLinux{} TeX Live 
 				\end{itemize}
 				\column{\linewidth/2-\linewidth/20}
 				
@@ -214,7 +231,7 @@
 		}
 	
 	
-	\section{The Basics and Principles}
+	\section{Basics and Principles}
 		\frame{\frametitle{Learn to love braces}
 			\includegraphics[width=\textwidth-5pt]{xkcd.png}
 			
@@ -251,7 +268,7 @@
 			\end{block}
 		}
 	
-		\frame{\frametitle{The Logical Structure of a \LaTeX\ Document cont'd}
+		\begin{frame}{The Logical Structure of a \LaTeX\ Document cont'd}
 			\begin{block}{Body}
 				\begin{itemize}
 					\item<1-> Initialize the document in an environment\\
@@ -266,7 +283,7 @@
 					\end{itemize}
 				\end{itemize}
 			\end{block}
-		}
+		\end{frame}
 	
 		\frame[containsverbatim]{\frametitle{The simplest document}
 			\begin{columns}[onlytextwidth,T]
@@ -320,36 +337,36 @@
 	
 		\frame{\frametitle{\textbackslash{}documentclass\{article\}}
 			\begin{columns}[onlytextwidth,T]
-				\column{\linewidth/2-\linewidth/20}
+				\column{\linewidth/2}
 				\includegraphics[width=\linewidth, page=1]{hiddentitlearticle}
-				\column{\linewidth/2-\linewidth/20}
+				\column{\linewidth/2}
 				\includegraphics[width=\linewidth, page=2]{hiddentitlearticle}
 			\end{columns}	
 		}
 	
 		\frame{\frametitle{\textbackslash{}documentclass\{scrbook\}}
 			\begin{columns}[onlytextwidth,T]
-				\column{\linewidth/2-\linewidth/20}
+				\column{\linewidth/2}
 				\includegraphics[width=\linewidth, page=1]{hiddentitlescrbook}
-				\column{\linewidth/2-\linewidth/20}
+				\column{\linewidth/2}
 				\includegraphics[width=\linewidth, page=2]{hiddentitlescrbook}
 			\end{columns}	
 		}
 	
 		\frame{\frametitle{\textbackslash{}documentclass\{report\}}
 			\begin{columns}[onlytextwidth,T]
-				\column{\linewidth/2-\linewidth/20}
+				\column{\linewidth/2}
 				\includegraphics[width=\linewidth, page=1]{hiddentitlereport}
-				\column{\linewidth/2-\linewidth/20}
+				\column{\linewidth/2}
 				\includegraphics[width=\linewidth, page=2]{hiddentitlereport}
 			\end{columns}
 		}
 	
 		\frame{\frametitle{\textbackslash{}documentclass\{elsarticle\}}
 			\begin{columns}[onlytextwidth,T]
-				\column{\linewidth/2-\linewidth/20}
+				\column{\linewidth/2}
 				\includegraphics[width=\linewidth, page=1]{hiddentitleelsarticle}
-				\column{\linewidth/2-\linewidth/20}
+				\column{\linewidth/2}
 				\includegraphics[width=\linewidth, page=2]{hiddentitleelsarticle}
 			\end{columns}
 		}
@@ -360,10 +377,11 @@
 			
 			\begin{block}<2->{Academic Publishers}
 				\begin{center}
-					Elsevier - $elsarticle$\\
-					Springer - $llncs$\\
-					IEEE - $IEEEtran$\\
-					AMS - $amscls$
+					Elsevier - \lstinline{elsarticle}\\
+					Springer - \lstinline{llncs}\\
+					IEEE - \lstinline{IEEEtran}\\
+					AMS - \lstinline{amscls}\\
+					ACS - \lstinline{achemso}
 				\end{center}
 			\end{block}
 		}
@@ -424,25 +442,13 @@
 				\item WordTech
 			\end{itemize}
 		}
-	
-		
-	
-	
-	
-	\section{Important Tools}
+
+	\section{Tools}
 		
 		
 		
 		
-		\frame{\frametitle{Section Hierarchy}
-			\textbackslash{}section\{The Topmost\}
-			
-			\qquad\textbackslash{}subsection\{A Little Deeper\}
-			
-			\qquad\qquad\textbackslash{}subsubsection\{Deeper Still\}
-			
-			\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\ldots
-		}
+		
 		
 		\frame[containsverbatim]{\frametitle{Text Formats}
 			\begin{LTXexample}
@@ -466,6 +472,16 @@
 				{\scriptsize I'm shrinking}\\
 				{\tiny I'm shrinking}\\
 			\end{LTXexample}
+		}
+	
+		\frame{\frametitle{Section Hierarchy}
+			\textbackslash{}section\{The Topmost\}
+			
+			\qquad\textbackslash{}subsection\{A Little Deeper\}
+			
+			\qquad\qquad\textbackslash{}subsubsection\{Deeper Still\}
+			
+			\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\ldots
 		}
 		
 		\frame[containsverbatim]{\frametitle{Lists}
@@ -508,19 +524,211 @@
 			\end{LTXexample}
 		}
 	
-		\frame{\frametitle{Graphics}
+		\frame[containsverbatim]{\frametitle{Exotic Page Sizes}
+			You can alter the \textbackslash{}geometry of a page.
+			\begin{columns}[onlytextwidth,T]
+				\column{\linewidth/2-\linewidth/20}
+				\includegraphics[width=0.9\linewidth]{hiddengeometry}
+				\column{\linewidth/3*2-\linewidth/20}
+				\begin{lstlisting}
+				\documentclass{article}
+				\usepackage{lipsum}
+				\usepackage[paperheight=5in,
+					paperwidth=4in,
+					margin=0.5in,
+					heightrounded,
+					showframe]{geometry}
+				\begin{document}
+					\lipsum[1]
+				\end{document}
+				\end{lstlisting}
+			\end{columns}
+			
+		}
+	
+		\frame[containsverbatim]{\frametitle{Graphics}
+			Graphics are included with size information, but not location.
+			\\
+			\begin{LTXexample}
+				\includegraphics[width=0.75\linewidth]{leonbike.png}
+			\end{LTXexample}
+			They still need somewhere to go!
+		}
 		
+		\frame[containsverbatim]{\frametitle{Graphics Locations}
+			You can put graphics within containers.\\
+			\begin{columns}[onlytextwidth,T]
+				\column{\linewidth/2-\linewidth/20}
+				~\\~\\~\\~\\~\\
+				\includegraphics[width=\columnwidth]{hiddenleonitemize}
+				\column{\linewidth/2-\linewidth/20}
+				\begin{lstlisting}
+				\documentclass{article}
+				\usepackage[paperheight=2in,paperwidth=2in,margin=0in]{geometry}
+				\usepackage{graphicx}
+				\newcommand*{\meow}{\includegraphics[width=1em]{leon.png}}
+				\begin{document}
+					\begin{itemize}
+						\item[\meow] My cat's name is Leon
+						\item[\meow] He is a handsome little man
+						\item[\meow] Also a jerk
+					\end{itemize}
+				\end{document}
+				\end{lstlisting}
+			\end{columns}
 		}
 	
-		\frame{\frametitle{Tables}
+		\frame{\frametitle{Floats}
+			Floats hold things for you.
 			
-		}
-	
-		\frame{\frametitle{Math}
+			\begin{itemize}
+				\item<1-> $h$ - Put it about \emph{here}
+				\item<2-> $t$ - Put it on the \emph{top} of a page
+				\item<3-> $b$ - Put it on the \emph{bottom} of a page
+				\item<4-> $p$ - Put it on a dedicated \emph{page}
+				\item<5-> $!$ - Listen to me you little\ldots
+			\end{itemize}
+		
+			\only<6->{Feel free to mix and match.}
 			
+			\begin{itemize}
+				\item<7-> $tb$ - Put it on the top or bottom of the page, whatever works
+				\item<8-> $htbp$ - I don't care where you put it
+				\item<9-> $h!$ - If you don't put it here I swear to Papa Knuth I will \lstinline{apt remove} you
+			\end{itemize}
 		}
 	
-	\section{Some Advanced Features (aka Wes shows off his projects)}
+		\frame[containsverbatim]{\frametitle{Tables}
+			Tables are made within the \lstinline{tabular} float environment.
+			
+			\begin{LTXexample}
+				\begin{tabular}[htbp]{l|c|c|c}
+					~    & col1 & col2 & col3\\
+					     \hline
+					row1 & a    & b    & c \\
+					row2 & aa   & bb   & cc \\
+					row3 & aaa  & bbb  & ccc \\
+				\end{tabular}
+			\end{LTXexample}
+		}
+	
+		\frame{\frametitle{These can be as complicated as you want to make them.}
+			\includegraphics[width=\linewidth]{hiddentable}
+		}
+	
+		\frame[containsverbatim]{\frametitle{Math}
+			
+			\begin{LTXexample}
+				\begin{equation}
+					x^2 + y^2 = z^2
+				\end{equation} 
+			\end{LTXexample}
+			
+			\begin{LTXexample} 
+				\begin{equation} 
+					\frac{\hbar^2}{2m}\nabla^2\Psi + V(\mathbf{r})\Psi = -i\hbar \frac{\partial\Psi}{\partial t}
+				\end{equation} 
+			\end{LTXexample}
+		
+			\begin{LTXexample}
+				Inline $y = m*x+b$ equations.
+			\end{LTXexample}
+		}
+	
+		\frame[containsverbatim]{\frametitle{Aligned math}
+			
+%			\begin{LTXexample}
+				\begin{align*}
+					0 &= ax^2+bx+c\\
+					0 &= x^2+\frac{b}{a}x+\frac{c}{a}\\
+					0 &= x^2+\frac{b}{a}x+\frac{b^2}{4a^2}+\frac{c}{a}-\frac{b^2}{4a^2}\\
+					\frac{b^2}{4a^2}-\frac{c}{a} &= \left(x+\frac{b}{2a}\right)^2\\
+					\frac{b^2-4ac}{4a^2} &= \left(x+\frac{b}{2a}\right)^2\\
+					\frac{\pm \sqrt{b^2-4ac}}{2a} &= x+\frac{b}{2a}\\
+					\frac{-b\pm \sqrt{b^2-4ac}}{2a} &= x
+				\end{align*}
+%			\end{LTXexample} 
+		}
+	
+		\frame{\frametitle{Citing and Referencing}
+			\begin{itemize}
+				\item<1->\LaTeX{}can create perfect bibliographies with \hologo{BibTeX}
+				
+				\item<2->\hologo{BibTeX} files are sets of information which contain everything relevant to citing a source
+				
+				\item<3->Most citation managers can export \hologo{BibTeX} files
+			\end{itemize}
+			\only
+		}
+	
+		\frame[containsverbatim]{\frametitle{A \hologo{BibTeX} Entry}
+			\begin{lstlisting}
+			@inproceedings{jacob2016,
+			series = {20},
+			title = {Monitoring of {{Carbon Dioxide}} and {{Methane Plumes}} from {{Combined Ground}}-{{Airborne Sensors}}},
+			volume = {61},
+			booktitle = {Convection and {{Boyancy Driven Flows}}: {{Environmental}}},
+			publisher = {{APS}},
+			author = {Jacob, Jamey and Mitchell, Taylor and Honeycutt, Wesley T. and Materer, Nicholas F. and Clark, Peter},
+			month = nov,
+			year = {2016}
+			}
+			
+			@phdthesis{dissertation,
+			address = {Stillwater, Oklahoma},
+			type = {Dissertation},
+			title = {Development and {{Applications}} of {{Chemical Sensors}} for the {{Detection}} of {{Atmospheric Carbon Dioxide}} and {{Methane}}},
+			school = {Oklahoma State University},
+			author = {Honeycutt, Wesley T.},
+			month = may,
+			year = {2017}
+			}
+			\end{lstlisting}
+		}
+	
+		\frame{\frametitle{I like using Zotero}
+			\includegraphics[width=\linewidth]{zotero}
+		}
+	
+		\frame[containsverbatim]{\frametitle{Now I can easily cite a source.}
+			\begin{columns}[onlytextwidth,T]
+				\column{\linewidth/2}
+				\includegraphics[width=\linewidth, page=1]{hiddencitations}
+				\column{\linewidth/2}
+			\begin{lstlisting}
+				Not only does the illustrious Dr. Honeycutt have a PhD in chemistry~\cite{dissertation}, but he likes to give technical talks~\cite{talk2014, talk2015}.  Other people even like giving presentations on his work~\cite{jacob2016}!
+			\end{lstlisting}
+			\end{columns}
+		}
+	
+		\frame[containsverbatim]{\frametitle{Then we create our bibliography}
+			\begin{lstlisting}
+			\bibliographystyle{natbib}
+			\bibliography{bib}
+			\end{lstlisting}
+			\begin{columns}[onlytextwidth,T]
+				\column{\linewidth/2}
+				\includegraphics[width=\linewidth, page=2]{hiddencitations}
+				\column{\linewidth/2}
+				\includegraphics[width=\linewidth, page=3]{hiddencitations}
+			\end{columns}
+		}
+	
+	\section{Advanced Features}
+	
+		\frame{\frametitle{Super Powerful for Theses}
+			
+			\begin{columns}[onlytextwidth,T]
+				\column{\linewidth/2-\linewidth/20}
+				Pop a chapter out, boom\ldots{}you got a paper.\\~\\
+				
+				My last school didn't have a template.  So I had to make one myself.\\~\\
+				
+				But you are lucky! \href{http://www.math.ou.edu/~mgsa/latex.html}{The OU math department has one.}
+				\column{\linewidth/2-\linewidth/20}
+				\includegraphics[width=\linewidth]{mathtemplate}
+			\end{columns}
+		}
 	
 	
 		\frame[containsverbatim]{\frametitle{Graphics Generation with TikZ}
@@ -533,7 +741,8 @@
 	
 		\frame[containsverbatim]{
 			% This slide breaks indentation convention to fit more on slide.
-			\begin{lstlisting}
+			
+			\begin{lstlisting}[basicstyle=\tiny\tt,]
 			\begin{tikzpicture}
 			\draw \pdiff (0,.25) -- (0,3) -- (1,3) -- (1,2.5) to [out=270,in=180] (1.5,2) -- (3.75,2) to [out=0,in=270] (4.25,2.5) -- (4.25,3) -- (6.75,3) -- (6.75,2.5) to [out=270,in=180] (7.25,2) -- (9.5,2) to [out=0,in=270] (10,2.5) -- (10,3) -- (11,3) -- (11,.25) -- (0,.25) node [midway,above] {p doped Si};
 			\draw \metalthree (0,0) rectangle (11,.25) node [midway, color=white]
@@ -549,11 +758,15 @@
 			\draw [->] (5.5,5) node [above] {Gate} -- (5.5,4.5);
 			\node at (5.5,-.5) [align=center] {$V_{GS} < V_{threshold}$};
 			\end{tikzpicture}
-			\end{lstlisting}	
+			\end{lstlisting}
+			
+			
+				
 		}
 	
 			\frame{\frametitle{MOSFET}
 				% General n-type mosfet
+				\begin{adjustbox}{max width=\linewidth}
 				\begin{tikzpicture}
 					\draw \pdiff (0,.25) -- (0,3) -- (1,3) -- (1,2.5) to [out=270,in=180] (1.5,2) -- (3.75,2) to [out=0,in=270] (4.25,2.5) -- (4.25,3) -- (6.75,3) -- (6.75,2.5) to [out=270,in=180] (7.25,2) -- (9.5,2) to [out=0,in=270] (10,2.5) -- (10,3) -- (11,3) -- (11,.25) -- (0,.25) node [midway,above] {p doped Si};
 					\draw \metalthree (0,0) rectangle (11,.25) node [midway, color=white]
@@ -589,15 +802,7 @@
 						\draw \ndiff (4.25,3) -- (4.25,2.85) -- (6.75,3) -- (4.75,3);
 						}
 				\end{tikzpicture}
-		}
-		
-		\frame{\frametitle{Super Powerful for Theses}
-			% Pop a chapter out, boom... you got a paper.
-			
-			% OSU doesn't have one.  What a bummer.  I made one myself.
-			
-			% OU does have one.  Let's link you to it.
-			% http://www.math.ou.edu/~mgsa/latex.html
+				\end{adjustbox}
 		}
 	
 		\frame{\frametitle{Make a Custom Class}
@@ -677,6 +882,24 @@
 		\frame{\frametitle{I use math for my consulting invoices.}
 			\centering
 			\includegraphics[height=0.9\paperheight]{hiddeninvoice}
+		}
+	
+		\frame{\frametitle{\textbackslash{}microtype aka Giving in to typesetting}
+			\begin{columns}[onlytextwidth,T]
+				\column{\linewidth/2}
+				\includegraphics[width=\linewidth]{hiddengeometry}
+				\column{\linewidth/2}
+				\includegraphics[width=\linewidth]{hiddenmicrotype}
+			\end{columns}
+		}
+	
+		\frame{\frametitle{\textbackslash{}microtype aka Giving in to typesetting}
+			\begin{columns}[onlytextwidth,T]
+				\column{\linewidth/2}
+				\includegraphics[width=\linewidth]{wordvariant}
+				\column{\linewidth/2}
+				\includegraphics[width=\linewidth]{hiddenmicrotype}
+			\end{columns}
 		}
 	
 	\section{Learning More}
@@ -769,26 +992,5 @@
 				\end{columns}
 			\end{block}
 			}
-	
-		\frame[containsverbatim]{ 
-			\begin{LTXexample} 
-				\begin{itemize} 
-					\item First. 
-					\item Second.
-					\item Third.
-				\end{itemize} 
-			\end{LTXexample}
-			
-			\begin{LTXexample} 
-				\begin{equation} 
-					x^2 + y^2 = z^2. 
-				\end{equation} 
-			\end{LTXexample} 
-			}
-	
-	
-	
-	
 
-	
 \end{document}
