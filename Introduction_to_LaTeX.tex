@@ -1,9 +1,10 @@
 \documentclass{beamer}
-%\usetheme{Dresden}
+\usetheme{Dresden}
 \usefonttheme[onlymath]{serif}
 
 \input{examplepages.tex}
 
+\usepackage{graphicx}
 \usepackage{xcolor}
 \usepackage{adjustbox}
 \usepackage{fontawesome}
@@ -74,6 +75,8 @@
 \newcommand{\oxide}{[pattern = bricks, pattern color = olive]}
 \newcommand{\silicon}{[fill = white]}
 \newcommand{\metalthree}{[fill = teal]}
+
+\graphicspath{ {images/} } %this removes clutter from the root folder
 
 \begin{document}
 
@@ -693,7 +696,7 @@
 		\frame[containsverbatim]{\frametitle{Now I can easily cite a source.}
 			\begin{columns}[onlytextwidth,T]
 				\column{\linewidth/2}
-				\includegraphics[width=\linewidth, page=1]{hiddencitations}
+				\includegraphics[width=\linewidth, page=1]{../hiddencitations.pdf}
 				\column{\linewidth/2}
 			\begin{lstlisting}
 				Not only does the illustrious Dr. Honeycutt have a PhD in chemistry~\cite{dissertation}, but he likes to give technical talks~\cite{talk2014, talk2015}.  Other people even like giving presentations on his work~\cite{jacob2016}!
@@ -708,9 +711,9 @@
 			\end{lstlisting}
 			\begin{columns}[onlytextwidth,T]
 				\column{\linewidth/2}
-				\includegraphics[width=\linewidth, page=2]{hiddencitations}
+				\includegraphics[width=\linewidth, page=2]{../hiddencitations.pdf}
 				\column{\linewidth/2}
-				\includegraphics[width=\linewidth, page=3]{hiddencitations}
+				\includegraphics[width=\linewidth, page=3]{../hiddencitations.pdf}
 			\end{columns}
 		}
 	

@@ -1,6 +1,6 @@
 \usepackage{filecontents}
 
-\newcommand{\compit}[1]{\immediate\write18{pdflatex -synctex=1 -interaction=nonstopmode #1.tex; rm #1.aux #1.log #1.synctex.gz #1.tex}}
+\newcommand{\compit}[1]{\immediate\write18{pdflatex -synctex=1 -interaction=nonstopmode #1.tex; rm #1.aux #1.log #1.synctex.gz #1.tex; mv #1.pdf ./images/}}
 
 \begin{filecontents*}{hiddenlayout.tex}
 	\documentclass[preview,border=12pt,12pt]{standalone}
@@ -195,6 +195,7 @@
 	\documentclass{article}
 	\usepackage[paperheight=2in,paperwidth=2in,margin=0in]{geometry}
 	\usepackage{graphicx}
+	\graphicspath{{images/}}
 	\newcommand*{\meow}{\includegraphics[width=1em]{leon.png}}
 	\begin{document}
 		\begin{itemize}
@@ -269,4 +270,5 @@
 \immediate\write18{pdflatex hiddencitations.tex}
 \immediate\write18{bibtex hiddencitations.aux}
 \immediate\write18{pdflatex hiddencitations.tex}
-\compit{hiddencitations}
+\immediate\write18{pdflatex hiddencitations.tex}
+\immediate\write18{rm hiddencitations.aux hiddencitations.log hiddencitations.tex; cp hiddencitations.pdf ./images/hiddencitations.pdf}
